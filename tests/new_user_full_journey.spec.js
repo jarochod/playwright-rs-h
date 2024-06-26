@@ -1,5 +1,5 @@
 import { test} from "@playwright/test"
-import { ProductsPage } from "../page-objects/ProoductPage"
+import { ProductsPage } from "../page-objects/ProoductsPage.js"
 
 test.only("New user full end-to-end test journey", async ({ page }) => {
     // ProductsPage.visit()
