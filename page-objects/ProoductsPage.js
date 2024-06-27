@@ -1,5 +1,5 @@
 import { expect } from "@playwright/test"
-import { NavigationPage } from "./NavigationPage.js"
+import { Navigation } from "./Navigation.js"
 
 export class ProductsPage {
     constructor(page) {
@@ -16,11 +16,11 @@ export class ProductsPage {
         const specificAddButon = this.addButtons.nth(index)
         await specificAddButon.waitFor()
         await expect(specificAddButon).toHaveText("Add to Basket")
-        const navigationPage = new NavigationPage(this.page)
-        const basketCounterBeforeAdding = await navigationPage.getBasketCount()
+        const navigation = new Navigation(this.page)
+        const basketCounterBeforeAdding = await navigation.getBasketCount()
         await specificAddButon.click()
         await expect(specificAddButon).toHaveText("Remove from Basket")
-        const basketCounterAfterAdding = await navigationPage.getBasketCount()
+        const basketCounterAfterAdding = await navigation.getBasketCount()
         expect(basketCounterAfterAdding).toBeGreaterThan(basketCounterBeforeAdding)
     }
 }
