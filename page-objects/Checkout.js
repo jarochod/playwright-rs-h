@@ -1,3 +1,5 @@
+import { expect } from "@playwright/test"
+
 export class Checkout {
     constructor(page) {
         this.page = page
@@ -9,16 +11,19 @@ export class Checkout {
 
     removeChipestProduct = async () => {
         await this.basketCards.first().waitFor()
+        const itemsBeforeRemoval = await this.basketCards.count()
         await this.basketItemPrice.first().waitFor()
         const allPriceTexts = await this.basketItemPrice.allInnerTexts()
         // [ '499$', '599$', '320$' ] => [ 499, 599, 320 ]
         const justNumbers = allPriceTexts.map(element => {
             const withoutDollarSign = element.replace("$","")
             return parseInt(withoutDollarSign, 10)
-            console.warn({element})
         })
-        console.warn({allPriceTexts})
-        console.warn({justNumbers})
-        await this.page.pause()  
+        const smallestPrice = Math.min(...justNumbers)
+        const smallestPriceIdx = justNumbers.indexOf(smallestPrice)
+        const specificRemoveButton = this.basketItemRemoveButton.nth(smallestPriceIdx)
+        await specificRemoveButton.waitFor()
+        await specificRemoveButton.click()
+        await expect(this.basketCards).toHaveCount(itemsBeforeRemoval -1)
     }
 }
