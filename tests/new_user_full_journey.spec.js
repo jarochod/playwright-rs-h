@@ -5,6 +5,7 @@ import { Navigation } from "../page-objects/Navigation.js"
 import { Checkout } from "../page-objects/Checkout.js"
 import { LoginPage } from "../page-objects/LoginPage.js"
 import { RegisterPage } from "../page-objects/RegisterPage.js"
+import { DeliveryDetails } from "../page-objects/DeliveryDetails.js"
 
 test.only("New user full end-to-end test journey", async ({ page }) => {
     // ProductsPage.visit()
@@ -28,4 +29,7 @@ test.only("New user full end-to-end test journey", async ({ page }) => {
     const email = uuidv4() + "gmail.com"
     const password = uuidv4()
     await registerPage.singUpAsNewUser(email,password)
+
+    const deliveryDetails = new DeliveryDetails(page)
+    await deliveryDetails.fillDetails()
 })
