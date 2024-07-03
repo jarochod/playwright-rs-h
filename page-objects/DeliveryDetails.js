@@ -12,6 +12,12 @@ export class DeliveryDetails {
         this.countryDropdown = page.locator('[data-qa="country-dropdown"]')
         this.saveAddressButton = page.getByRole('button', { name: 'Save address for next time' })
         this.saveAddressContainer = page.locator('[data-qa="saved-address-container"]')
+        this.savedAddressFirstName = page.locator('[data-qa="saved-address-firstName"]')
+        this.savedAddressLastName = page.locator('[data-qa="saved-address-lastName"]')
+        this.savedAddressPostcode = page.locator('[data-qa="saved-address-postcode"]')
+        this.savedAddressStreet = page.locator('[data-qa="saved-address-street"]')
+        this.savedAddressCity = page.locator('[data-qa="saved-address-city"]')
+        this.savedAddressCountry = page.locator('[data-qa="saved-address-country"]')
     }
 
     fillDetails = async (userAddres) => {
@@ -34,5 +40,23 @@ export class DeliveryDetails {
         await this.saveAddressButton.waitFor()
         await this.saveAddressButton.click()
         await expect(this.saveAddressContainer).toHaveCount(addressCountBeforeSaving + 1)
+        
+        await this.savedAddressFirstName.first().waitFor()
+        expect(await this.savedAddressFirstName.first().innerText()).toBe(await this.firstNameInput.inputValue())
+        
+        await this.savedAddressLastName.first().waitFor()
+        expect(await this.savedAddressLastName.first().innerText()).toBe(await this.lastNameInput.inputValue())
+        
+        await this.savedAddressPostcode.first().waitFor()
+        expect(await this.savedAddressPostcode.first().innerText()).toBe(await this.postcodeInput.inputValue())
+        
+        await this.savedAddressStreet.first().waitFor()
+        expect(await this.savedAddressStreet.first().innerText()).toBe(await this.streetInput.inputValue())
+        
+        await this.savedAddressCity.first().waitFor()
+        expect(await this.savedAddressCity.first().innerText()).toBe(await this.cityInput.inputValue())
+        
+        await this.savedAddressCountry.first().waitFor()
+        expect(await this.savedAddressCountry.first().innerText()).toBe(await this.countryDropdown.inputValue())
     }
 }
