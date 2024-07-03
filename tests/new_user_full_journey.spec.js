@@ -6,6 +6,7 @@ import { Checkout } from "../page-objects/Checkout.js"
 import { LoginPage } from "../page-objects/LoginPage.js"
 import { RegisterPage } from "../page-objects/RegisterPage.js"
 import { DeliveryDetails } from "../page-objects/DeliveryDetails.js"
+import { deliveryDetails as userAddres } from "../data/deliveryDetalis.js"
 
 test.only("New user full end-to-end test journey", async ({ page }) => {
     // ProductsPage.visit()
@@ -31,5 +32,5 @@ test.only("New user full end-to-end test journey", async ({ page }) => {
     await registerPage.singUpAsNewUser(email,password)
 
     const deliveryDetails = new DeliveryDetails(page)
-    await deliveryDetails.fillDetails()
+    await deliveryDetails.fillDetails(userAddres)
 })
