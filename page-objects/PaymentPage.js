@@ -13,7 +13,14 @@ export class PaymentPage {
         await this.discountCode.waitFor()
         const code = await this.discountCode.innerText()
         await this.discountInput.waitFor()
+
+        // Option 1 for laggy inputs: using .fill() with await expect()
         await this.discountInput.fill(code)
         await expect(this.discountInput).toHaveValue(code)
+
+        // Option 2 for laggy inputs: slow typing
+        // await this.discountInput.focus()
+        // await this.page.keyboard.type(code, {delay: 1000})
+        // expect(await this.discountInput.inputValue()).toBe(code)
     }
 }
