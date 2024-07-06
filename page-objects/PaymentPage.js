@@ -11,6 +11,10 @@ export class PaymentPage {
         this.totalValue = page.locator('[data-qa="total-value"]')
         this.discountedValue = page.locator('[data-qa="total-with-discount-value"]')
         this.discountActiveMessage = page.locator('[data-qa="discount-active-message"]')
+        this.creditCardOwnerInput = page.getByPlaceholder('Credit card owner')
+        this.creditCardNumberInput = page.getByPlaceholder('Credit card number')
+        this.validUntilInput = page.getByPlaceholder('Valid until')
+        this.creditCardCvcInput = page.getByPlaceholder('Credit card CVC')
     }
 
     activateDiscount = async () => {
@@ -52,5 +56,16 @@ export class PaymentPage {
         console.log(discountValueOnlyNumber_)
         //check that the discounted price total is smaller than the regular one
         expect(discountValueOnlyNumber_).toBeLessThan(totalValueOnlyNumber_)
+    }
+    fillPaymentDetails = async (paymentDetails) => {
+        await this.creditCardOwnerInput.waitFor()
+        await this.creditCardOwnerInput.fill(paymentDetails.owner)
+        await this.creditCardNumberInput.waitFor()
+        await this.creditCardNumberInput.fill(paymentDetails.number)
+        await this.validUntilInput.waitFor()
+        await this.validUntilInput.fill(paymentDetails.validUntil)
+        await this.creditCardCvcInput.waitFor()
+        await this.creditCardCvcInput.fill(paymentDetails.cvc)
+        await this.page.pause()
     }
 }
