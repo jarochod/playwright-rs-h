@@ -1,4 +1,5 @@
 import { expect } from "@playwright/test"
+import { timeout } from "../playwright.config"
 
 export class PaymentPage {
     constructor(page) {
@@ -15,6 +16,7 @@ export class PaymentPage {
         this.creditCardNumberInput = page.getByPlaceholder('Credit card number')
         this.validUntilInput = page.getByPlaceholder('Valid until')
         this.creditCardCvcInput = page.getByPlaceholder('Credit card CVC')
+        this.payButton = page.locator('[data-qa="pay-button"]')
     }
 
     activateDiscount = async () => {
@@ -66,6 +68,11 @@ export class PaymentPage {
         await this.validUntilInput.fill(paymentDetails.validUntil)
         await this.creditCardCvcInput.waitFor()
         await this.creditCardCvcInput.fill(paymentDetails.cvc)
-        await this.page.pause()
+    }
+
+    completePayment = async () => {
+        await this.payButton.waitFor()
+        await this.payButton.click()
+        await this.page.waitForURL(/\/thank-you/, {timeout: 3000})
     }
 }
