@@ -25,15 +25,16 @@ export class ProductsPage {
         await expect(specificAddButon).toHaveText("Add to Basket")
         const navigation = new Navigation(this.page)
         // only desktop viewport
+        let basketCounterBeforeAdding
         if (isDesktopViewport(this.page)) {
-        const basketCounterBeforeAdding = await navigation.getBasketCount()
+            basketCounterBeforeAdding = await navigation.getBasketCount()
         }
         await specificAddButon.click()
         await expect(specificAddButon).toHaveText("Remove from Basket")
         // only desktop viewport
         if (isDesktopViewport(this.page)) {
-        const basketCounterAfterAdding = await navigation.getBasketCount()
-        expect(basketCounterAfterAdding).toBeGreaterThan(basketCounterBeforeAdding)
+            const basketCounterAfterAdding = await navigation.getBasketCount()
+            expect(basketCounterAfterAdding).toBeGreaterThan(basketCounterBeforeAdding)
         }
     }
 
