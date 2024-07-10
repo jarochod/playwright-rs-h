@@ -53,9 +53,9 @@ export class PaymentPage {
 
         //short version
         const totalValueOnlyNumber_ = parseInt((await this.totalValue.innerText()).replace("$",""), 10)
-        console.log(totalValueOnlyNumber_)
+        //console.log(totalValueOnlyNumber_)
         const discountValueOnlyNumber_ = parseInt((await this.discountedValue.innerText()).replace("$",""), 10)
-        console.log(discountValueOnlyNumber_)
+        //console.log(discountValueOnlyNumber_)
         //check that the discounted price total is smaller than the regular one
         expect(discountValueOnlyNumber_).toBeLessThan(totalValueOnlyNumber_)
     }
