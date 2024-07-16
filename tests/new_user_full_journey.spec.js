@@ -1,6 +1,6 @@
 import { test} from "@playwright/test"
 import { v4 as uuidv4 } from 'uuid'
-import { ProductsPage } from "../page-objects/ProoductsPage.js"
+import { ProductsPage } from "../page-objects/ProductsPage.js"
 import { Navigation } from "../page-objects/Navigation.js"
 import { Checkout } from "../page-objects/Checkout.js"
 import { LoginPage } from "../page-objects/LoginPage.js"
